@@ -1,0 +1,40 @@
+﻿@using WebMVCAppSandbox.ViewModels;
+@model  EmployeeListViewModel
+@{
+    Layout = null;
+    string Title = "Workshop 21.01.2016";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <p>Hello, @Model.UserName</p>
+    <p><a href="~/Authentication/Logout">Logout</a></p>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2"><a href="/Employee/AddNew">Add New</a></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><strong>Employee Name</strong></div>
+        <div class="col-md-2"><strong>Salary</strong></div>
+        <div class="col-md-12"></div>
+    </div>
+    @foreach (EmployeeViewModel emp in Model.Employees)
+    { 
+        <div class="row">
+            <div class="col-md-2">@emp.EmployeeName</div>
+            <div class="col-md-2"><span style="background-color:@emp.SalaryColor;">@emp.Salary</span></div>
+            <div class="col-md-12"></div>
+        </div>
+    }
+</body>
+</html>

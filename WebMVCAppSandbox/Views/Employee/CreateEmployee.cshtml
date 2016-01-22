@@ -1,0 +1,43 @@
+﻿@using WebMVCAppSandbox.ViewModels;
+@model CreateEmployeeViewModel
+
+@{
+    
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create Employee</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div> 
+        <form action="/Employee/SaveEmployee" method="post">
+            First Name: <input type="text" id="TxtFName" name="FirstName" value="@Model.FirstName" /> <br/>
+            <p>@Html.ValidationMessage("FirstName")</p>
+            Last Name: <input type="text" id="TxtLName" name="LastName" value="@Model.LastName" /> <br/>
+            <p>@Html.ValidationMessage("LastName")</p>
+            Salary: <input type="text" id="TxtSalary" name="Salary" value="@Model.Salary" /> <br/>
+            <p>@Html.ValidationMessage("Salary")</p>
+            <input type="submit" name="BtnSubmit" value="Save" onclick="return IsValid();" />
+            <input type="button" name="BtnReset" value="Reset" onclick="ResetForm();">
+            <input type="submit" name="BtnSubmit" value="Cancel" >
+        </form>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        function ResetForm() {
+            $("#TxtFName").val("");
+            $("#TxtLName").val("");
+            $("#TxtSalary").val("");
+        }
+    </script>
+    <script src="~/Scripts/Validation.js"></script>
+</body>
+</html>
+ 
