@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebMVCAppSandbox.ViewModels
 {
-    public class CreateEmployeeViewModel
+    public class CreateEmployeeViewModel : BaseViewModel
     {
         public string FirstName { get; set; }
 

@@ -3,19 +3,15 @@
 
 @{
     
-    Layout = null;
+    Layout = "~/Views/Shared/_Mylayout.cshtml";
 }
 
-<!DOCTYPE html>
+@section TitleSection {
+    Workshop 22.01.2015
+}
+ 
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create Employee</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
+@section ContentBody {
     <div> 
         <form action="/Employee/SaveEmployee" method="post">
             First Name: <input type="text" id="TxtFName" name="FirstName" value="@Model.FirstName" /> <br/>
@@ -38,6 +34,4 @@
         }
     </script>
     <script src="~/Scripts/Validation.js"></script>
-</body>
-</html>
- 
+}

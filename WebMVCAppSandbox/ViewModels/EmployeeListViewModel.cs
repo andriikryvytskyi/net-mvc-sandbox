@@ -5,9 +5,11 @@ using System.Web;
 
 namespace WebMVCAppSandbox.ViewModels
 {
-    public class EmployeeListViewModel
+    public class EmployeeListViewModel : BaseViewModel
     {
+        /// <summary>
+        /// List of emploees
+        /// </summary>
         public List<EmployeeViewModel> Employees { get; set; }
-        public string UserName { get; set; }
     }
 }

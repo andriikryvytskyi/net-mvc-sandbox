@@ -24,15 +24,19 @@ namespace WebMVCAppSandbox.Models
             return e;
         }
 
-        public bool IsValidUser(UserDetails u)
+        public UserStatus GetUserValidity(UserDetails u)
         {
             if (u.UserName == "admin" && u.Password == "admin")
             {
-                return true;
+                return UserStatus.AuthenticatedAdmin;
+            }
+            else if (u.UserName == "andrii" && u.Password == "inetpass")
+            {
+                return UserStatus.AuthenticatedUser;
             }
             else
             {
-                return false;
+                return UserStatus.NonAuthenticatedUser;
             }
         }
     }

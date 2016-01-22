@@ -24,16 +24,25 @@ namespace WebMVCAppSandbox.Controllers
             if (ModelState.IsValid)
             {
                 EmployeeBusinessLayer bal = new EmployeeBusinessLayer();
-                if (bal.IsValidUser(u))
+                var userStatus = bal.GetUserValidity(u);
+                bool isAdmin = false;
+                if (userStatus == UserStatus.AuthenticatedAdmin)
                 {
-                    FormsAuthentication.SetAuthCookie(u.UserName, false);
-                    return RedirectToAction("Index", "Employee");
+                    isAdmin = true;
+                }
+                else if (userStatus == UserStatus.AuthenticatedUser)
+                {
+                    isAdmin = false;
                 }
                 else
                 {
                     ModelState.AddModelError("CredentialError", "Invalid Username or Password");
                     return View("Login");
                 }
+
+                FormsAuthentication.SetAuthCookie(u.UserName, false);
+                Session["IsAdmin"] = isAdmin;
+                return RedirectToAction("Index", "Employee");
             }
             else
             {

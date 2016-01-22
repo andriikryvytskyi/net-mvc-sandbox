@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMVCAppSandbox.Filters;
 using WebMVCAppSandbox.Models;
 using WebMVCAppSandbox.ViewModels;
 
@@ -10,6 +11,7 @@ namespace WebMVCAppSandbox.Controllers
 {
     public class EmployeeController : Controller
     {
+        [HeaderFooterFilter]
         public ActionResult Index()
         {
             var empListViewModel = new EmployeeListViewModel();
@@ -37,11 +39,17 @@ namespace WebMVCAppSandbox.Controllers
             return View("Index", empListViewModel);
         }
 
+        [AdminFilter]
+        [HeaderFooterFilter]
         public ActionResult AddNew()
         {
-            return View("CreateEmployee", new CreateEmployeeViewModel());
+            var vm = new CreateEmployeeViewModel();
+
+            return View("CreateEmployee", vm);
         }
 
+        [AdminFilter]
+        [HeaderFooterFilter]
         public ActionResult SaveEmployee(Employee e, string BtnSubmit)
         {
             switch (BtnSubmit)
@@ -51,6 +59,7 @@ namespace WebMVCAppSandbox.Controllers
                     {
                         var salesBL = new EmployeeBusinessLayer();
                         salesBL.SaveEmployee(e);
+
                         return RedirectToAction("Index");
                     }
                     else
@@ -74,6 +83,19 @@ namespace WebMVCAppSandbox.Controllers
             }
 
             return new EmptyResult();
+        }
+
+        [ChildActionOnly]
+        public ActionResult GetAddNewLink()
+        {
+            if (Convert.ToBoolean(Session["IsAdmin"]))
+            {
+                return PartialView("AddNewLink");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
         }
     }
 }

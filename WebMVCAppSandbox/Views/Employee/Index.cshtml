@@ -1,28 +1,20 @@
 ﻿@using WebMVCAppSandbox.ViewModels;
 @model  EmployeeListViewModel
 @{
-    Layout = null;
-    string Title = "Workshop 21.01.2016";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    string Title = "Workshop 22.01.2016";
 }
 
-<!DOCTYPE html>
+@section TitleSection {
+    Workshop 22.01.2016
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <p>Hello, @Model.UserName</p>
-    <p><a href="~/Authentication/Logout">Logout</a></p>
-    <hr/>
-    <div class="row">
-        <div class="col-md-2"><a href="/Employee/AddNew">Add New</a></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-12"></div>
-    </div>
+@section ContentBody {
+    <p>
+        @{
+            Html.RenderAction("GetAddNewLink");
+        }
+    </p>
     <div class="row">
         <div class="col-md-2"><strong>Employee Name</strong></div>
         <div class="col-md-2"><strong>Salary</strong></div>
@@ -36,5 +28,4 @@
             <div class="col-md-12"></div>
         </div>
     }
-</body>
-</html>
+}
