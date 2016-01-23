@@ -39,5 +39,12 @@ namespace WebMVCAppSandbox.Models
                 return UserStatus.NonAuthenticatedUser;
             }
         }
+
+        public void UpoloadEmployees(List<Employee> employees)
+        {
+            SalesERPDAL salesDAL = new SalesERPDAL();
+            salesDAL.Employees.AddRange(employees);
+            salesDAL.SaveChanges();
+        }
     }
 }
