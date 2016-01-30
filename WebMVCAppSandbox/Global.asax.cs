@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
+﻿using BusinessLayer;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using WebMVCAppSandbox.DataAccessLayer;
 
 namespace WebMVCAppSandbox
 {
@@ -14,7 +13,7 @@ namespace WebMVCAppSandbox
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SalesERPDAL>());
+            BusinessSettings.SetBusiness();
         }
     }
 }

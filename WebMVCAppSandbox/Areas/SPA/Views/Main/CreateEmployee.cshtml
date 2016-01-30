@@ -1,0 +1,58 @@
+﻿@using WebMVCAppSandbox.ViewModels.SPA;
+@model CreateEmployeeViewModel
+
+<div>
+    First Name: <input type="text" id="TxtFName" name="FirstName" value="@Model.FirstName" /> <br />
+    <p>@Html.ValidationMessage("FirstName")</p>
+    Last Name: <input type="text" id="TxtLName" name="LastName" value="@Model.LastName" /> <br />
+    <p>@Html.ValidationMessage("LastName")</p>
+    Salary: <input type="text" id="TxtSalary" name="Salary" value="@Model.Salary" /> <br />
+    <p>@Html.ValidationMessage("Salary")</p>
+    <input type="button" name="BtnSubmit" value="Save" onclick="SaveEmployee();" />
+    <input type="button" name="BtnReset" value="Reset" onclick="ResetForm();">
+    <input type="button" name="BtnSubmit" value="Cancel" onclick="CancelSave();">
+</div>
+
+<script type="text/javascript">
+    function ResetForm() {
+        document.getElementById('TxtFName').value = "";
+        document.getElementById('TxtLName').value = "";
+        document.getElementById('TxtSalary').value = "";
+    }
+
+    function CancelSave() {
+        $('#DivCreateEmployee').dialog('close');
+    }
+
+    function SaveEmployee() {
+        if (IsValid()) {
+            var e =
+                {
+                    FirstName: $('#TxtFName').val(),
+                    LastName: $('#TxtLName').val(),
+                    Salary: $('#TxtSalary').val()
+                };
+            $.post("/SPA/Main/SaveEmployee", e).then(
+                function (r) {
+                    var newTr = $('<tr></tr>');
+                    var nameTD = $('<td></td>');
+                    var salaryTD = $('<td></td>');
+
+                    nameTD.text(r.EmployeeName);
+                    salaryTD.text(r.Salary);
+
+                    salaryTD.css("background-color", r.SalaryColor);
+
+                    newTr.append(nameTD);
+                    newTr.append(salaryTD);
+
+                    $('#EmployeeTable').append(newTr);
+                    $('#DivCreateEmployee').dialog('close');
+                }
+                );
+        }
+    }
+
+    
+</script>
+<script src="~/Scripts/Validation.js"></script>

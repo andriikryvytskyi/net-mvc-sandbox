@@ -30,7 +30,7 @@ namespace WebMVCAppSandbox.Controllers
                 (() => GetEmployees(model));
             int t2 = Thread.CurrentThread.ManagedThreadId;
             var employeesBL = new EmployeeBusinessLayer();
-            employeesBL.UpoloadEmployees(employees);
+            employeesBL.UploadEmployees(employees);
 
             return RedirectToAction("Index", "Employee");
         }

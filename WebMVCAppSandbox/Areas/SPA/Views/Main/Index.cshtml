@@ -1,0 +1,63 @@
+﻿@using WebMVCAppSandbox.ViewModels.SPA;
+@model MainViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee Single Page Application</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div style="text-align:right;">Hello, @Model.UserName &nbsp; <a href="~/Authentication/Logout">Logout</a></div>
+        <hr />
+
+        <div>
+            @{
+                Html.RenderAction("EmployeeList");
+            }
+        </div>
+        @Html.Partial("Footer", Model.FooterData)
+    </div>
+    <script type="text/javascript">
+    function OpenAddNew() {
+        $.get("/SPA/Main/AddNew").then
+            (
+                function (r) {
+                    $("<div id='DivCreateEmployee'></div>").html(r).
+                        dialog({
+                            width: 'auto', height: 'auto', modal: true, title: "Create New Employee",
+                            close: function () {
+                                $('#DivCreateEmployee').remove();
+                            }
+                        });
+                }
+            );
+    }
+
+    function OpenBulkUpload() {
+        $.get("/SPA/SpaBulkUpload/Index").then
+            (
+                function (r) {
+                    $("<div id='DivBulkUpload'></div>").html(r).dialog({
+                        width: 'auto', height: 'auto', modal: true, title: "Create New Employee",
+                        close: function () {
+                            $('#DivBulkUpload').remove();
+                        }
+                    });
+                }
+            );
+    }
+    </script>
+</body>
+</html>
+
+

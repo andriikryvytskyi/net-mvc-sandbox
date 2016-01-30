@@ -40,7 +40,7 @@ namespace WebMVCAppSandbox.Models
             }
         }
 
-        public void UpoloadEmployees(List<Employee> employees)
+        public void UploadEmployees(List<Employee> employees)
         {
             SalesERPDAL salesDAL = new SalesERPDAL();
             salesDAL.Employees.AddRange(employees);
